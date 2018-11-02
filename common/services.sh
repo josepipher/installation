@@ -283,6 +283,9 @@ expect eof
     fi
 }
 
+function services_db_creation() {
+    _services_db_creation
+}
 
 function mq() {
     service_check rabbitmq-server 5672 && return
