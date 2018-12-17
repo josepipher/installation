@@ -40,7 +40,7 @@ function _nova_configure() {
         crudini --set $NOVA_CONF api auth_strategy keystone
 
         crudini --set $NOVA_CONF keystone_authtoken auth_uri http://$CTRL_MGMT_IP:5000
-        crudini --set $NOVA_CONF keystone_authtoken auth_url http://$CTRL_MGMT_IP:35357
+        crudini --set $NOVA_CONF keystone_authtoken auth_url http://$CTRL_MGMT_IP:5000
         crudini --set $NOVA_CONF keystone_authtoken auth_type password
         crudini --set $NOVA_CONF keystone_authtoken project_domain_name default
         crudini --set $NOVA_CONF keystone_authtoken user_domain_name default
@@ -59,7 +59,7 @@ function _nova_configure() {
         crudini --set $NOVA_CONF placement project_name $KEYSTONE_T_NAME_SERVICE
         crudini --set $NOVA_CONF placement auth_type password
         #crudini --set $NOVA_CONF placement auth_uri http://$CTRL_MGMT_IP:5000
-        crudini --set $NOVA_CONF placement auth_url http://$CTRL_MGMT_IP:35357/v3
+        crudini --set $NOVA_CONF placement auth_url http://$CTRL_MGMT_IP:5000/v3
         crudini --set $NOVA_CONF placement user_domain_name default
         crudini --set $NOVA_CONF placement username $KEYSTONE_U_PLACEMENT
         crudini --set $NOVA_CONF placement password $KEYSTONE_U_PWD_PLACEMENT
@@ -93,7 +93,7 @@ EOF
         fi
 
         crudini --set $NOVA_CONF neutron url http://$CTRL_MGMT_IP:9696
-        crudini --set $NOVA_CONF neutron auth_url http://$CTRL_MGMT_IP:35357
+        crudini --set $NOVA_CONF neutron auth_url http://$CTRL_MGMT_IP:5000
         crudini --set $NOVA_CONF neutron auth_type password
         crudini --set $NOVA_CONF neutron project_domain_name default
         crudini --set $NOVA_CONF neutron user_domain_name default

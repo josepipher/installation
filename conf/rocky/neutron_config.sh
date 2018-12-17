@@ -126,7 +126,7 @@ function _neutron_configure() {
             crudini --set $NEUTRON_CONF oslo_messaging_rabbit rabbit_ha_queues $RABBIT_HA
             crudini --set $NEUTRON_CONF oslo_concurrency lock_path /var/lib/neutron/tmp
 
-            crudini --set $NEUTRON_CONF nova auth_url http://$CTRL_MGMT_IP:35357
+            crudini --set $NEUTRON_CONF nova auth_url http://$CTRL_MGMT_IP:5000
             crudini --set $NEUTRON_CONF nova auth_type password
             crudini --set $NEUTRON_CONF nova region_name $REGION
             crudini --set $NEUTRON_CONF nova project_domain_name default
@@ -143,7 +143,7 @@ function _neutron_configure() {
             crudini --del $NEUTRON_CONF keystone_authtoken admin_password
 
             crudini --set $NEUTRON_CONF keystone_authtoken auth_uri http://$CTRL_MGMT_IP:5000
-            crudini --set $NEUTRON_CONF keystone_authtoken auth_url http://$CTRL_MGMT_IP:35357
+            crudini --set $NEUTRON_CONF keystone_authtoken auth_url http://$CTRL_MGMT_IP:5000
             crudini --set $NEUTRON_CONF keystone_authtoken auth_type password
             crudini --set $NEUTRON_CONF keystone_authtoken project_domain_name default
             crudini --set $NEUTRON_CONF keystone_authtoken user_domain_name default
@@ -235,7 +235,7 @@ function _neutron_configure() {
         ## config metadata agent /etc/neutron/metadata_agent.ini
         if [ -e "/etc/neutron/metadata_agent.ini" ]; then
             crudini --set /etc/neutron/metadata_agent.ini DEFAULT auth_uri http://$CTRL_MGMT_IP:5000
-            crudini --set /etc/neutron/metadata_agent.ini DEFAULT auth_url http://$CTRL_MGMT_IP:35357
+            crudini --set /etc/neutron/metadata_agent.ini DEFAULT auth_url http://$CTRL_MGMT_IP:5000
             crudini --set /etc/neutron/metadata_agent.ini DEFAULT auth_region $REGION
             crudini --set /etc/neutron/metadata_agent.ini DEFAULT auth_plugin password
             crudini --set /etc/neutron/metadata_agent.ini DEFAULT project_domain_id default

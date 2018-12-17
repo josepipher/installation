@@ -20,7 +20,7 @@ function _cinder_configure() {
     crudini --del $CINDER_CONF keystone_authtoken admin_password
 
     crudini --set $CINDER_CONF keystone_authtoken auth_uri http://$CTRL_MGMT_IP:5000
-    crudini --set $CINDER_CONF keystone_authtoken auth_url http://$CTRL_MGMT_IP:35357
+    crudini --set $CINDER_CONF keystone_authtoken auth_url http://$CTRL_MGMT_IP:5000
     crudini --set $CINDER_CONF keystone_authtoken project_domain_name default
     crudini --set $CINDER_CONF keystone_authtoken user_domain_name default
     crudini --set $CINDER_CONF keystone_authtoken auth_type password
