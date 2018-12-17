@@ -152,6 +152,7 @@ declare -a SUPPORTED_OPENSTACK_RELEASE=(
     liberty
     mitaka
     ocata
+    rocky
 )
 export SUPPORTED_OPENSTACK_RELEASE
 
