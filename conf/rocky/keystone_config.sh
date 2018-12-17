@@ -28,7 +28,7 @@ function _keystone_configure() {
     su -s /bin/sh -c "keystone-manage db_sync" keystone
 
     keystone-manage bootstrap --bootstrap-password $KEYSTONE_U_ADMIN_PWD \
-      --bootstrap-admin-url http://$CTRL_MGMT_IP:35357/v3/ \
+      --bootstrap-admin-url http://$CTRL_MGMT_IP:5000/v3/ \
       --bootstrap-internal-url http://$CTRL_MGMT_IP:5000/v3/ \
       --bootstrap-public-url http://$CTRL_MGMT_IP:5000/v3/ \
       --bootstrap-region-id RegionOne
@@ -38,7 +38,7 @@ function _keystone_configure() {
     systemctl restart httpd.service || exit 11
 
     #export OS_TOKEN=$ADMIN_TOKEN
-    #export OS_URL=http://$CTRL_MGMT_IP:35357/v3
+    #export OS_URL=http://$CTRL_MGMT_IP:5000/v3
     #export OS_IDENTITY_API_VERSION=3
     #if [[ -n $OS_AUTH_URL ]]; then
     #    unset OS_AUTH_URL
@@ -65,7 +65,7 @@ function _keystone_configure() {
                 openstack service create --name keystone --description "OpenStack Identity v3" identity
                 openstack endpoint create --region $REGION identity public http://$CTRL_MGMT_IP:5000/v3
                 openstack endpoint create --region $REGION identity internal http://$CTRL_MGMT_IP:5000/v3
-                openstack endpoint create --region $REGION identity admin http://$CTRL_MGMT_IP:35357/v3
+                openstack endpoint create --region $REGION identity admin http://$CTRL_MGMT_IP:5000/v3
 
             elif [ $service == 'glance' ] ; then
                 openstack service create --name glance --description "OpenStack Image service" image
@@ -129,7 +129,7 @@ EOF
     export KEYSTONE_T_ID_SERVICE=$(openstack project show service | grep '| id' | awk '{print $4}')
 
     # test the admin user, request an authentication token
-    openstack --os-auth-url http://$CTRL_MGMT_IP:35357/v3 \
+    openstack --os-auth-url http://$CTRL_MGMT_IP:5000/v3 \
         --os-project-domain-name default --os-user-domain-name default \
         --os-project-name $KEYSTONE_T_NAME_ADMIN \
         --os-username $KEYSTONE_U_ADMIN token issue
