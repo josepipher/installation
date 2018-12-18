@@ -3,8 +3,8 @@
 function _nova_configure() {
     if [ -e "$NOVA_CONF" ]; then
         crudini --set $NOVA_CONF DEFAULT enabled_apis "osapi_compute,metadata"
-        crudini --set $NOVA_CONF api_database connection mysql://$DB_USER_NOVA:$DB_PWD_NOVA@$DB_IP/nova_api
-        crudini --set $NOVA_CONF database connection mysql://$DB_USER_NOVA:$DB_PWD_NOVA@$DB_IP/nova
+        crudini --set $NOVA_CONF api_database connection mysql+pymysql://$DB_USER_NOVA:$DB_PWD_NOVA@$DB_IP/nova_api
+        crudini --set $NOVA_CONF database connection mysql+pymysql://$DB_USER_NOVA:$DB_PWD_NOVA@$DB_IP/nova
 
         crudini --set $NOVA_CONF oslo_messaging_rabbit rabbit_ha_queues $RABBIT_HA
         crudini --set $NOVA_CONF DEFAULT transport_url "rabbit://$RABBIT_LIST"
@@ -39,7 +39,7 @@ function _nova_configure() {
 
         crudini --set $NOVA_CONF api auth_strategy keystone
 
-        crudini --set $NOVA_CONF keystone_authtoken auth_uri http://$CTRL_MGMT_IP:5000
+        crudini --set $NOVA_CONF keystone_authtoken www_authenticate_uri http://$CTRL_MGMT_IP:5000
         crudini --set $NOVA_CONF keystone_authtoken auth_url http://$CTRL_MGMT_IP:5000
         crudini --set $NOVA_CONF keystone_authtoken auth_type password
         crudini --set $NOVA_CONF keystone_authtoken project_domain_name default
@@ -58,7 +58,7 @@ function _nova_configure() {
         crudini --set $NOVA_CONF placement project_domain_name default
         crudini --set $NOVA_CONF placement project_name $KEYSTONE_T_NAME_SERVICE
         crudini --set $NOVA_CONF placement auth_type password
-        #crudini --set $NOVA_CONF placement auth_uri http://$CTRL_MGMT_IP:5000
+        #crudini --set $NOVA_CONF placement www_authenticate_uri http://$CTRL_MGMT_IP:5000
         crudini --set $NOVA_CONF placement auth_url http://$CTRL_MGMT_IP:5000/v3
         crudini --set $NOVA_CONF placement user_domain_name default
         crudini --set $NOVA_CONF placement username $KEYSTONE_U_PLACEMENT

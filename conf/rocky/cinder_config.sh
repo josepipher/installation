@@ -1,5 +1,5 @@
 function _cinder_configure() {
-    crudini --set $CINDER_CONF database connection mysql://$DB_USER_CINDER:$DB_PWD_CINDER@$DB_IP/cinder
+    crudini --set $CINDER_CONF database connection mysql+pymysql://$DB_USER_CINDER:$DB_PWD_CINDER@$DB_IP/cinder
     #crudini --set $CINDER_CONF DEFAULT rpc_backend rabbit
     crudini --set $CINDER_CONF DEFAULT auth_strategy keystone
     crudini --set $CINDER_CONF DEFAULT my_ip $STORAGE_IP
@@ -19,7 +19,7 @@ function _cinder_configure() {
     crudini --del $CINDER_CONF keystone_authtoken admin_user
     crudini --del $CINDER_CONF keystone_authtoken admin_password
 
-    crudini --set $CINDER_CONF keystone_authtoken auth_uri http://$CTRL_MGMT_IP:5000
+    crudini --set $CINDER_CONF keystone_authtoken www_authenticate_uri http://$CTRL_MGMT_IP:5000
     crudini --set $CINDER_CONF keystone_authtoken auth_url http://$CTRL_MGMT_IP:5000
     crudini --set $CINDER_CONF keystone_authtoken project_domain_name default
     crudini --set $CINDER_CONF keystone_authtoken user_domain_name default

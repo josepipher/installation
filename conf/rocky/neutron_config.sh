@@ -135,14 +135,14 @@ function _neutron_configure() {
             crudini --set $NEUTRON_CONF nova username $KEYSTONE_U_NOVA
             crudini --set $NEUTRON_CONF nova password $KEYSTONE_U_PWD_NOVA
 
-            crudini --set $NEUTRON_CONF database connection mysql://$DB_USER_NEUTRON:$DB_PWD_NEUTRON@$DB_IP/neutron
+            crudini --set $NEUTRON_CONF database connection mysql+pymysql://$DB_USER_NEUTRON:$DB_PWD_NEUTRON@$DB_IP/neutron
 
             crudini --del $NEUTRON_CONF keystone_authtoken identity_uri
             crudini --del $NEUTRON_CONF keystone_authtoken admin_tenant_name
             crudini --del $NEUTRON_CONF keystone_authtoken admin_user
             crudini --del $NEUTRON_CONF keystone_authtoken admin_password
 
-            crudini --set $NEUTRON_CONF keystone_authtoken auth_uri http://$CTRL_MGMT_IP:5000
+            crudini --set $NEUTRON_CONF keystone_authtoken www_authenticate_uri http://$CTRL_MGMT_IP:5000
             crudini --set $NEUTRON_CONF keystone_authtoken auth_url http://$CTRL_MGMT_IP:5000
             crudini --set $NEUTRON_CONF keystone_authtoken auth_type password
             crudini --set $NEUTRON_CONF keystone_authtoken project_domain_name default
@@ -234,7 +234,7 @@ function _neutron_configure() {
 
         ## config metadata agent /etc/neutron/metadata_agent.ini
         if [ -e "/etc/neutron/metadata_agent.ini" ]; then
-            crudini --set /etc/neutron/metadata_agent.ini DEFAULT auth_uri http://$CTRL_MGMT_IP:5000
+            crudini --set /etc/neutron/metadata_agent.ini DEFAULT www_authenticate_uri http://$CTRL_MGMT_IP:5000
             crudini --set /etc/neutron/metadata_agent.ini DEFAULT auth_url http://$CTRL_MGMT_IP:5000
             crudini --set /etc/neutron/metadata_agent.ini DEFAULT auth_region $REGION
             crudini --set /etc/neutron/metadata_agent.ini DEFAULT auth_plugin password
